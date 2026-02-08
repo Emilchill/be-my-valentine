@@ -1,0 +1,212 @@
+<div  style="text-align: center;">
+<h1 id="titulo"><strong>HOLA SHARE</strong></h1>
+</div>
+<img id="imagen" src="img/tenor.gif" style="display: block; margin:auto; width:200px; position: relative; z-index: 1;">
+<h2 id="subtitulo" style="text-align: center;"><strong>QUIERES SER MI SAN VALENTIN?</strong></h2>
+<div id="contenedorBotones" style="text-align: center; position: relative; z-index: 1; margin-top: 20px;">
+<button id="botonSi" style="font-size: 16px; cursor: pointer; padding: 10px 20px; transition: transform 0.1s;">SI</button>
+<button id="botonNo" style="cursor: pointer; padding: 10px 20px;">NO</button>
+
+</div>
+
+<style>
+@keyframes rebotar1 {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(calc(100vw - 120px), 0); }
+    50% { transform: translate(calc(100vw - 120px), calc(100vh - 120px)); }
+    75% { transform: translate(0, calc(100vh - 120px)); }
+    100% { transform: translate(0, 0); }
+}
+
+@keyframes rebotar2 {
+    0% { transform: translate(calc(100vw - 120px), 0); }
+    25% { transform: translate(calc(100vw - 120px), calc(100vh - 120px)); }
+    50% { transform: translate(0, calc(100vh - 120px)); }
+    75% { transform: translate(0, 0); }
+    100% { transform: translate(calc(100vw - 120px), 0); }
+}
+
+@keyframes rebotar3 {
+    0% { transform: translate(0, calc(100vh - 120px)); }
+    25% { transform: translate(0, 0); }
+    50% { transform: translate(calc(100vw - 120px), 0); }
+    75% { transform: translate(calc(100vw - 120px), calc(100vh - 120px)); }
+    100% { transform: translate(0, calc(100vh - 120px)); }
+}
+
+@keyframes rebotar4 {
+    0% { transform: translate(calc(100vw - 120px), calc(100vh - 120px)); }
+    25% { transform: translate(0, calc(100vh - 120px)); }
+    50% { transform: translate(0, 0); }
+    75% { transform: translate(calc(100vw - 120px), 0); }
+    100% { transform: translate(calc(100vw - 120px), calc(100vh - 120px)); }
+}
+
+@keyframes caerCorazon {
+    0% {
+        transform: translateY(-10vh) translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) translateX(100px);
+        opacity: 0;
+    }
+}
+
+@keyframes caerFlor {
+    0% {
+        transform: translateY(-10vh) translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) translateX(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.contenedor-efectos {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.corazon {
+    position: absolute;
+    font-size: 30px;
+    animation: caerCorazon 3s ease-in forwards;
+}
+
+.flor {
+    position: absolute;
+    font-size: 35px;
+    animation: caerFlor 4s ease-in forwards;
+}
+
+.imagen-lateral {
+    position: fixed;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+    opacity: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.imagen-lateral-izq1 {
+    animation: rebotar1 15s linear infinite;
+}
+
+.imagen-lateral-izq2 {
+    animation: rebotar2 18s linear infinite;
+}
+
+.imagen-lateral-der1 {
+    animation: rebotar3 16s linear infinite;
+}
+
+.imagen-lateral-der2 {
+    animation: rebotar4 17s linear infinite;
+}
+</style>
+
+<div id="contenedorEfectos" class="contenedor-efectos"></div>
+
+<img id="loveIzq1" src="img/love.jpeg" class="imagen-lateral imagen-lateral-izq1" alt="">
+<img id="loveIzq2" src="img/love1.jpeg" class="imagen-lateral imagen-lateral-izq2" alt="">
+<img id="loveDer1" src="img/love2.JPG" class="imagen-lateral imagen-lateral-der1" alt="">
+<img id="loveDer2" src="img/love3.jpeg" class="imagen-lateral imagen-lateral-der2" alt="">
+
+<script>
+let escala = 1;
+let aceptado = false;
+let contadorNo = 0;
+const frases = ["SEGURA?", "ENSERIO?", "DALE A SI MUJER","NO ME HAGAS ESTO", "PORFA?", "TE LO SUPLICO", "NO ME DEJES ASI", "TE AMO", "ERES MI VIDA", "SIN TI NO SOY NADA"];
+
+document.getElementById('botonNo').addEventListener('click', function() {
+    if (aceptado) return;
+    
+    // Aumentar escala del botón SI
+    escala += 0.25;
+    document.getElementById('botonSi').style.transform = "scale(" + escala + ")";
+    
+    // Bajar los botones para que no tapen la imagen
+    const contenedor = document.getElementById('contenedorBotones');
+    const margenActual = parseInt(window.getComputedStyle(contenedor).marginTop) || 20;
+    contenedor.style.marginTop = (margenActual + 15) + 'px';
+    
+    // Cambiar el h1
+    document.getElementById('titulo').textContent = frases[contadorNo % frases.length];
+    contadorNo++;
+});
+
+document.getElementById('botonSi').addEventListener('click', function() {
+    if (aceptado) return;
+    aceptado = true;
+    
+    // Cambiar fondo a rosa San Valentín
+    document.body.style.background = 'linear-gradient(135deg, #FFB6D9 0%, #FFC0D9 50%, #FFD6E8 100%)';
+    document.body.style.minHeight = '100vh';
+    
+    // Cambiar textos
+    document.getElementById('titulo').textContent = 'ERES MIA';
+    document.getElementById('subtitulo').textContent = 'FELIZ SAN VALENTIN';
+    
+    // Ocultar los botones
+    document.getElementById('contenedorBotones').style.display = 'none';
+    
+    // Mostrar imágenes con animación
+    document.getElementById('loveIzq1').style.opacity = '1';
+    document.getElementById('loveIzq2').style.opacity = '1';
+    document.getElementById('loveDer1').style.opacity = '1';
+    document.getElementById('loveDer2').style.opacity = '1';
+    
+    // Cambiar imagen a perro salchicha
+    document.getElementById('imagen').src = 'img/dog.gif';
+    // Crear flores y corazones continuamente
+    crearFloresYCorazones();
+    setInterval(crearFloresYCorazones, 2000);
+});
+
+function crearCorazones() {
+    const contenedor = document.getElementById('contenedorEfectos');
+    for (let i = 0; i < 15; i++) {
+        const corazon = document.createElement('div');
+        corazon.textContent = '❤️';
+        corazon.className = 'corazon';
+        corazon.style.left = Math.random() * 100 + '%';
+        corazon.style.animationDelay = (Math.random() * 0.5) + 's';
+        contenedor.appendChild(corazon);
+    }
+    
+    setTimeout(() => {
+        document.querySelectorAll('.corazon').forEach(c => c.remove());
+    }, 3500);
+}
+
+function crearFloresYCorazones() {
+    const contenedor = document.getElementById('contenedorEfectos');
+    
+    for (let i = 0; i < 10; i++) {
+        const corazon = document.createElement('div');
+        corazon.textContent = '❤️';
+        corazon.className = 'corazon';
+        corazon.style.left = Math.random() * 100 + '%';
+        corazon.style.animationDelay = (Math.random() * 0.5) + 's';
+        contenedor.appendChild(corazon);
+    }
+    
+    for (let i = 0; i < 10; i++) {
+        const flor = document.createElement('div');
+        flor.textContent = '🌹';
+        flor.className = 'flor';
+        flor.style.left = Math.random() * 100 + '%';
+        flor.style.animationDelay = (Math.random() * 0.5) + 's';
+        contenedor.appendChild(flor);
+    }
+}
+</script>
